@@ -95,7 +95,9 @@ Z_outer_after = max_z_a_out - min_z_a_out
 print("Внутреннее кольцо:")
 print(f"Толщина Z до = {Z_inner_before}, после = {Z_inner_after}")
 print(f"Высота Y до = {Y_inner_before}, после = {Y_inner_after}")
+print(f"Соотношение толщины к высоте до = {Z_inner_before/Y_inner_before}, после = {Z_inner_after/Y_inner_after}")
 
 print("Внешнее кольцо:")
 print(f"Толщина Z до = {Z_outer_before}, после = {Z_outer_after}")
 print(f"Высота Y до = {Y_outer_before}, после = {Y_outer_after}")
+print(f"Соотношение толщины к высоте до = {Z_outer_before/Y_outer_before}, после = {Z_outer_after/Y_outer_after}")
