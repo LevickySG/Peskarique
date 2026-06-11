@@ -10,20 +10,20 @@ class Tubes:
                 self.atom_coords = atoms[first_atom: last_atom+1]
                 self.mins = self.min_()
                 self.maxs = self.max_()
-        def max_(self):
+        def max_(self): # Получение списка с максимумами координат (xyz >[1][2][3]). Нолик для удобной нумерации
                 maxs = [0.0]
                 for i in range(1, 4):
                         maxs.append(max(float(coords[i]) for coords in self.atom_coords if len(coords) >1))
                 return maxs
-        def min_(self):
+        def min_(self):# ... с минимумами координат (xyz >[1][2][3]). Нолик для удобной нумерации
                 mins = [0.0]
                 for l in range(1, 4):
                         mins.append(min(float(coords[l]) for coords in self.atom_coords if len(coords) >1))
                 return mins
 
-        def side(self, axis: int):
+        def side(self, axis: int): # сторона "коробочки"
                 return abs(self.maxs[axis] - self.mins[axis])
-        def boxing(self, axis_first: int, axis_second: int):
+        def boxing(self, axis_first: int, axis_second: int):#соотношение стороны first к second
                 return self.side(axis_first)/self.side(axis_second)
 
 def kolcevanie():
@@ -32,14 +32,14 @@ def gorcevanie():
         pass
 
 def main():
-        tubes = open(sys.argv[1], 'r')
-        atoms = [line.split() for line in tubes.readlines()[1:]]
+        tubes = open(sys.argv[1], 'r') #загрузка файла
+        atoms = [line.split() for line in tubes.readlines()[1:]]#получение списка координат атомов, 1-индексация
+#инициализация трубок
+        bottom_inner = Tubes(atoms, int(sys.argv[2]), int(sys.argv[3]))#нижняя внутренняя
+        bottom_outer = Tubes(atoms, int(sys.argv[4]), int(sys.argv[5]))#... внешняя
 
-        bottom_inner = Tubes(atoms, int(sys.argv[2]), int(sys.argv[3]))
-        bottom_outer = Tubes(atoms, int(sys.argv[4]), int(sys.argv[5]))
-
-        top_inner = Tubes(atoms, int(sys.argv[6]), int(sys.argv[7]))
-        top_outer = Tubes(atoms, int(sys.argv[8]), int(sys.argv[9]))
+        top_inner = Tubes(atoms, int(sys.argv[6]), int(sys.argv[7]))#верхняя внутренняя
+        top_outer = Tubes(atoms, int(sys.argv[8]), int(sys.argv[9]))#... внешняя
 
         print (f"Скукоживание Верхней трубки:\n"
         f"Внешнее кольцо : {top_outer.boxing(3,2)}\n"
