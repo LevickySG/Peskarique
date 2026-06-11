@@ -35,11 +35,11 @@ def main():
         tubes = open(sys.argv[1], 'r')
         atoms = [line.split() for line in tubes.readlines()[1:]]
 
-        top_outer = Tubes(atoms, int(sys.argv[8]), int(sys.argv[9]))
-        top_inner = Tubes(atoms, int(sys.argv[6]), int(sys.argv[7]))
-
-        bottom_outer = Tubes(atoms, int(sys.argv[4]), int(sys.argv[5]))
         bottom_inner = Tubes(atoms, int(sys.argv[2]), int(sys.argv[3]))
+        bottom_outer = Tubes(atoms, int(sys.argv[4]), int(sys.argv[5]))
+
+        top_inner = Tubes(atoms, int(sys.argv[6]), int(sys.argv[7]))
+        top_outer = Tubes(atoms, int(sys.argv[8]), int(sys.argv[9]))
 
         print (f"Скукоживание Верхней трубки:\n"
         f"Внешнее кольцо : {top_outer.boxing(3,2)}\n"
