@@ -11,24 +11,20 @@ class Tubes:
                 self.mins = self.min_()
                 self.maxs = self.max_()
         def max_(self):
-                max_x = max(float(coords[1]) for coords in self.atom_coords if len(coords) >1)
-                max_y = max(float(coords[2]) for coords in self.atom_coords if len(coords) >1)
-                max_z = max(float(coords[3]) for coords in self.atom_coords if len(coords) >1)
-                maxs = [0.0, max_x,max_y, max_z]
+                maxs = [0.0]
+                for i in range(1, 4):
+                        maxs.append(max(float(coords[i]) for coords in self.atom_coords if len(coords) >1))
                 return maxs
         def min_(self):
-                min_x = min(float(coords[1]) for coords in self.atom_coords if len(coords) >1)
-                min_y = min(float(coords[2]) for coords in self.atom_coords if len(coords) >1)
-                min_z = min(float(coords[3]) for coords in self.atom_coords if len(coords) >1)
-                mins = [0.0, min_x, min_y, min_z]
+                mins = [0.0]
+                for l in range(1, 4):
+                        mins.append(min(float(coords[l]) for coords in self.atom_coords if len(coords) >1))
                 return mins
 
-        def width(self, axis: int):
-                return abs(self.maxs[axis] - self.mins[axis])
-        def length(self, axis:int):
+        def side(self, axis: int):
                 return abs(self.maxs[axis] - self.mins[axis])
         def boxing(self, axis_first: int, axis_second: int):
-                return self.width(axis_first)/self.length(axis_second)
+                return self.side(axis_first)/self.side(axis_second)
 
 def kolcevanie():
         pass
@@ -55,13 +51,13 @@ def main():
         log_out = open("log.txt", 'w', encoding='utf-8')
         log_out.write(f"Верхняя трубка:\n"
                       f"кольцо\tвнешнее\tвнутреннее\n"
-                      f"ширина\t{top_outer.width(3):.5f}\t{top_inner.width(3):.5f}\n"
-                      f"длина\t{top_outer.length(2):.5f}\t{top_inner.length(2):.5f}\n"
+                      f"ширина\t{top_outer.side(3):.5f}\t{top_inner.side(3):.5f}\n"
+                      f"длина\t{top_outer.side(2):.5f}\t{top_inner.side(2):.5f}\n"
                       f"жимка\t{top_outer.boxing(3,2):.5f}\t{top_inner.boxing(3,2):.5f}\n")
         log_out.write(f"Нижняя трубка:\n"
                       f"кольцо\tвнешнее\tвнутреннее\n"
-                      f"ширина\t{bottom_outer.width(3):.5f}\t{bottom_inner.width(3):.5f}\n"
-                      f"длина\t{bottom_outer.length(1):.5f}\t{bottom_inner.length(1):.5f}\n"
+                      f"ширина\t{bottom_outer.side(3):.5f}\t{bottom_inner.side(3):.5f}\n"
+                      f"длина\t{bottom_outer.side(1):.5f}\t{bottom_inner.side(1):.5f}\n"
                       f"жимка\t{bottom_outer.boxing(3, 1):.5f}\t{bottom_inner.boxing(3, 1):.5f}\n")
         log_out.close()
         tubes.close()
